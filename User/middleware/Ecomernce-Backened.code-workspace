@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../Ecomernce-Backened"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"kiroAgent.configureMCP": "Disabled"
+	}
+}
