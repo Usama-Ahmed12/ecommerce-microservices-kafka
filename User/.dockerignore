@@ -1,0 +1,10 @@
+@"
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+*.md
+Dockerfile
+.dockerignore
+"@ | Out-File -FilePath "User\.dockerignore" -Encoding utf8
