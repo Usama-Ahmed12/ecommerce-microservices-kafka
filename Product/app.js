@@ -12,17 +12,22 @@ connectDB();
 
 const app = express();
 
+// 🔥 Trust proxy setting (NGINX ke liye) - COMMENTED OUT
+// app.set('trust proxy', true);
+
 // Enable CORS
 app.use(cors());
 
 // Enable Helmet
 app.use(helmet());
 
-// Rate limiter
+// Rate limiter - FIXED
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100,
-  message: "Too many requests from this IP, please try again later."
+  message: "Too many requests from this IP, please try again later.",
+  // trustProxy: true  // ❌ REMOVE THIS LINE
+  skip: () => process.env.NODE_ENV === 'production' // Skip rate limiting in production if behind NGINX
 });
 app.use(limiter);
 

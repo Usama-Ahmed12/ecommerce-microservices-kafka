@@ -89,18 +89,8 @@ services:
     container_name: auth-service
     ports:
       - "3001:3001"
-    environment:
-      - NODE_ENV=production
-      - PORT=3001
-      - MONGO_URI=mongodb://mongodb:27017/auth_db
-      - JWT_SECRET=mysecretkey
-      - JWT_REFRESH_SECRET=myrefreshsecretkey
-      - ADMIN_EMAIL=uusamaahmed1@gmail.com
-      - ADMIN_PASS=Admin@123
-      - EMAIL_USER=uusamaahmed1@gmail.com
-      - EMAIL_PASS=jpgkhmtszyevqhmw
-      - BASE_URL=http://localhost:3001
-      - KAFKA_BROKER=kafka:29092
+    env_file:
+      - ./Auth/.env
     depends_on:
       mongodb:
         condition: service_healthy
@@ -118,13 +108,8 @@ services:
     container_name: user-service
     ports:
       - "3002:3002"
-    environment:
-      - NODE_ENV=production
-      - PORT=3002
-      - MONGO_URI=mongodb://mongodb:27017/auth_db
-      - JWT_SECRET=mysecretkey
-      - JWT_REFRESH_SECRET=myrefreshsecretkey
-      - BASE_URL=http://localhost:3002
+    env_file:
+      - ./User/.env
     depends_on:
       mongodb:
         condition: service_healthy
@@ -140,15 +125,8 @@ services:
     container_name: product-service
     ports:
       - "3003:3003"
-    environment:
-      - NODE_ENV=production
-      - PORT=3003
-      - MONGO_URI=mongodb://mongodb:27017/product_db
-      - JWT_SECRET=mysecretkey
-      - JWT_REFRESH_SECRET=myrefreshsecretkey
-      - REDIS_URL=redis://redis:6379
-      - BASE_URL=http://localhost:3003
-      - KAFKA_BROKER=kafka:29092
+    env_file:
+      - ./Product/.env
     depends_on:
       mongodb:
         condition: service_healthy
@@ -168,16 +146,8 @@ services:
     container_name: cart-service
     ports:
       - "3004:3004"
-    environment:
-      - NODE_ENV=production
-      - PORT=3004
-      - MONGO_URI=mongodb://mongodb:27017/ecommerce_cart_db
-      - JWT_SECRET=mysecretkey
-      - JWT_REFRESH_SECRET=myrefreshsecretkey
-      - REDIS_URL=redis://redis:6379
-      - PRODUCT_SERVICE_URL=http://product-service:3003
-      - BASE_URL=http://localhost:3004
-      - KAFKA_BROKER=kafka:29092
+    env_file:
+      - ./Cart/.env
     depends_on:
       mongodb:
         condition: service_healthy
@@ -199,20 +169,8 @@ services:
     container_name: order-service
     ports:
       - "3005:3005"
-    environment:
-      - NODE_ENV=production
-      - PORT=3005
-      - MONGO_URI=mongodb://mongodb:27017/ecommerce_db
-      - JWT_SECRET=mysecretkey
-      - JWT_REFRESH_SECRET=myrefreshsecretkey
-      - REDIS_URL=redis://redis:6379
-      - CART_SERVICE_URL=http://cart-service:3004
-      - PRODUCT_SERVICE_URL=http://product-service:3003
-      - ADMIN_EMAIL=uusamaahmed1@gmail.com
-      - EMAIL_USER=uusamaahmed1@gmail.com
-      - EMAIL_PASS=jpgkhmtszyevqhmw
-      - BASE_URL=http://localhost:3005
-      - KAFKA_BROKER=kafka:29092
+    env_file:
+      - ./Order/.env
     depends_on:
       mongodb:
         condition: service_healthy
